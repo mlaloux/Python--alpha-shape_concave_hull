@@ -186,7 +186,7 @@ for ia, ib, ic in tri.vertices:
 
 Il n'y a que quelques valeurs qui dénotent > 1000
 
-Sean Gillies utilise un seuil basé sur la surface du triangle
+Sean Gillies utilise un seuil basé sur la surface du cercle circonscrit à un triangle et de son rayon.
 
 "All of these are radii on the order of 1 except for 2 outliers. Those outliers are the narrow triangles we want to exclude from our hull. Setting a radius limit of 2 (α=0.5) via the code below removes the outlier triangles"
 
