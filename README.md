@@ -5,6 +5,9 @@ repris de [The fading shape of alpha](http://sgillies.net/blog/1155/the-fading-s
 
 ![](http://i.imgur.com/t0uJfUq.jpg)
 
+1) calcul de Delanunay et extraction des arêtes (edges)
+
+
 ```Python
 
 import fiona
@@ -33,6 +36,23 @@ from shapely.geometry import MultiLineString
 from shapely.ops import cascaded_union, polygonize
 import json
 m = MultiLineString(edge_points)
+````
+
+Delaunay
+
+```Python
+schema = {'geometry': 'LineString','properties': {'test': 'str'}}
+with fiona.open('delaunay.shp','w','ESRI Shapefile', schema) as e:
+       e.write({'geometry':mapping(m), 'properties':{'test':1}})
+```
+
+![](http://i.imgur.com/KOnQZhC.jpg)
+
+
+Concave Hull - Alpha shapes
+
+```Python
+
 triangles = list(polygonize(m))
 
 # sauver triangles
@@ -40,7 +60,7 @@ triangles = list(polygonize(m))
 schema = {'geometry': 'Polygon','properties': {'test': 'int'}}
 with fiona.open('triangles.shp','w','ESRI Shapefile', schema) as e:
       for geom in triangles:
-          e.write({'geometry':mapping(geom), 'properties':{'test':1}})
+          e.write({'geometry':mapping(geom), 'properties':{'test':'Delaunay'}})
           
 ```
 
